@@ -1,0 +1,128 @@
+<html><head>
+<title>SYSC 2001 Lab 0- Intro to Libra</title>
+</head>
+
+<body>
+
+<h2>SYSC 2001 LAB0</h2>
+<h2>Introduction to Libra</h2>
+
+<hr align="center" size="1" width="100%">
+
+
+<p>This is an <b>Introductory Lab</b> only and will not be marked. You will need to make sure your account is working properly on the Lab computers and you will also have a chance to run the Libra emulator for the first time.
+
+<p>The TA’s will help you setup your accounts. This is a fairly straightforward process and you have all done it before. Once the system indicates that your account
+has been created, log out and back in to test your new account.
+
+<H3>Getting your System Set Up for the Term</H3>
+<p><i>(For non-Windows users, please see the notes <a href="#linux"> below</a>)</i>
+
+<ol>
+<li>At this time you should verify that your ‘<b>M-Drive’</b> has been mounted. You should
+only use this drive for all Lab related material. Files created on the <b>‘C-Drive’</b> are not guaranteed to remain – these drives are maintained
+by the technical staff and may be cleaned without warning, so don't save anything on the <b>'C-Drive'</b>.
+
+<li>Create a directory for your SYSC2001 labs on the M-drive –- you can call it <b>SYSC2001</b> or anything you like. Create a sub-directory called <b>Lab0</b> in this directory -– you should
+create new sub-directories as needed during the term to help organize your files. 
+
+<li>Right-click on the following link: <a href="http://www.sce.carleton.ca/courses/sysc-2001/f13/protected/Labs/hi.asm">hi.asm</a> , choose ‘Save Target As ..’
+and save it in the <b>Lab0</b> directory you created above. This is a very short assembly language program that prints a short message on the Libra screen. 
+
+<li>To see the difference between files with the same name, but different extensions (e.g. 'hi.asm' vs. 'hi.lst' vs 'hi.obj'), you need to change your settings in Windows to <u>not</u> hide known file extensions. 
+To do this, follow <a href="http://support.microsoft.com/kb/865219#LetMeFixItMyselfAlways">these instructions</a>.
+
+<li>Create a new directory on your M-drive called <code>"Libra"</code>. v1.0 of the assembler (lasm-GUI.exe) and Libra (libra.exe) programs are located at <a href="http://www.sce.carleton.ca/courses/sysc-2001/f13/protected/Labs/Libra_1.0.0.zip">http://www.sce.carleton.ca/courses/sysc-2001/f13/protected/Labs/Libra_1.0.0.zip</a>. Download the zip file and save the contents (i.e. "expand all" or copy-paste contents) into your new <code>"Libra"</code> directory. If your browser presents you with a warning that this file is not normally downloaded and it is suggested that you 'discard' it, please 'keep' it instead. For ease of use we will create 2 shortcuts to these programs on the desktop. Open an explorer window, go to your new <code>"Libra"</code> directory.
+Find the assembler program <b>‘lasm-gui.exe’</b>, right-click on it, drag it out to your desktop,
+release and select <b>‘Create Shortcut Here’</b>. Also find the emulator program <b>‘libra.exe’ </b>and create another shortcut
+for it on your desktop. 
+
+<li>In general, you will create assembly language files in a text editor. We <u>highly recommend</u> <a href="http://download.tuxfamily.org/notepadplus/6.4.5/npp.6.4.5.bin.zip">Notepad++</a>. 
+Simply download this zip file, save (i.e. "expand" or "copy-paste") the 'unicode' directory from inside the zip file into your M-Drive. You can then create a shortcut from 'notepad++.exe' onto your desktop. (The same way you created the two shortcuts above). 
+<i>Note that you can't edit code in complex word processors such as MS Word or WordPad since these don't create simple text files that the assembler can read.</i>. 
+Now you need to make sure that Windows will know to use your new Notepad++ editor to open .asm files (and .lst files later). To do this, right click on your downloaded <b>hi.asm</b> file, 
+and choose "Open With", then select "Choose Default Program", then choose "Browse", then navigate to the <b>notepad++.exe</b> file you downloaded, and then select the <b>‘Always
+use the selected program ….’</b> box. From now on, whenever you double-click on a *.asm file, it will be opened with Notepad. We suggest you do the same with <b>hi.obj.lst</b> when you create it below...
+</ol>
+
+<H3>Libra Test-Drive</H3>
+<p>We are now ready to ‘test drive’ Libra! 
+ 
+<ol>
+<li>If <b>'hi.asm'</b> <i>(that you placed in your Lab0 directory)</i> is not already open, open it now using NotePad++. Take a quick look
+at the program. This is a simple, short program that simply prints a message on the Libra display screen. For now, the program may not make too much
+sense to you – we will be learning what all of these commands do and how to use them as the course progresses. You
+should, however be able to see that the ASCII character <code>‘H’</code> is loaded into a register (the <code>AL</code> register) and then the <code>‘OUT’</code> statement moves it to an address
+just after that – this statement actually displays the character on the Libra
+display. Then the character <code>‘i’</code> is loaded into the <code>AL</code> register and
+it is also displayed by the next <code>‘OUT’</code> statement. After that, the program simply stops (<code>HLT</code> means <b>‘halt’</b>). 
+
+ 
+<li>Now exit the Notepad++ editor (do not save the file) and run the assembler. To do this, double-click on your shortcut to the assembler program (lasm-gui.exe). <i>If you are warned that "The publisher could not be verified...", please uncheck the "Always ask before opening this file" checkbox, then click on the "Run" button. You will have to do this again when first running the libra.exe emulator.</I> 
+<li>Once the assembler opens, click on the "Load" button and locate the <b>Lab0</b> directory you
+created and select <b>‘hi.asm’</b>. Click on the <b>‘Assemble’</b> button. If all is well, you will see a happy message telling you that hi.obj was created. If not, ask for help. In later labs, when you write your own code, you will likely 
+see errors when you try to assemble your code. the assembler will tell you which line(s) have the error(s). You can then modify your assembly source code to fix the errors, then try to asemble again.
+
+ 
+<li>Exit the assembler and go back into your <b>Lab0</b> directory. You should see that you have created two new files called <b>hi.obj</b> and <b>hi.obj.lst</b>. Don’t bother looking at <b>hi.obj</b> – it is a binary
+file and difficult to make any sense out of. However, <b>hi.obj.lst</b> is a very useful file that shows you how each instruction translates into machine code, where each instruction is stored in memory, and the location of any assembly errors you may have.
+
+ 
+<li>Now double-click on the <b>‘libra.exe’</b> shortcut you created on your desktop. 
+
+ 
+<li>Within Libra, click on "<b>File – Load Object File</b>" and look in your <b>Lab0</b> directory. Select your <b>hi.OBJ</b> object file and press open. <b><i>Wow!</i></b> Now we see Libra in all its glory! There are many things we can do here – you
+will learn about them later. For now, notice that the assembly program has also been loaded in the upper-left
+window. Press <b>Run – Play</b> and watch what happens. You should see the message <b>‘Hi’</b>
+printed in the Libra "Screen" (upper-right window) and a message will pop up saying that "HLT was encountered, execution is terminated". You have just run your first Libra program! 
+</ol>
+
+ 
+
+<H3>The Fetch-Execute Cycle</H3>
+<ol>
+	<li>Reset your program in Libra (use the "Reload File" toolbar button or menu item). Look at the "Registers" window and take note of the contents of the <code>IP</code> -- this is the location <i>(i.e. memory address)</i> of the first instruction of your program. Look at the value in register <code>AX</code>. Considering that you just reset the processor, it should read <code>0000</code>. 
+
+	<li>Now single step through your program using the "Step Into" toolbar button or menu item (or keyboard shortcut F11). You should see your <code>IP</code> register increasing by more than 1. Why is it doing this? Here are some hints:
+	<ul><li>Think of the Fetch-Execute Cycle... Each instruction must first be fetched into the CPU (read from memory) before it is executed
+		<li>The IP always points to the <u>next instruction to be fetched</u>
+		<li>Recall that encoded instructions can take anywhere from 1-6 bytes... <i>(i.e. some instructions take more than a single byte of memory when encoded in binary machine language)</i>
+	</ul>
+
+	<li>Which registers are changed by the <code>MOV</code> instructions? Is this what you would expect from looking at the instructions? The Libra emulator shows the register <code>AX</code>, but <b>hi.asm</b> uses the register <code>AL</code>... What is the relationship between the <code>AX</code> and <code>AL</code> registers? <i>(We will cover this in class soon, but see if you can figure it out by single-stepping through your program a few times...)</i>
+
+	<li>What do the highlighting colours mean in Libra? What is highlighted in yellow, red, and green?
+</ol>
+
+<H3>Modifying Your Program</H3> 
+<ol>
+<li>Please modify <b>hi.asm</b> using Notepad++ so that it will print your name. Save your modified hi.asm, re-assemble it, re-load it in Libra, and run it.
+</ol>
+
+<H3>Check-out Procedure</H3>
+<ol>
+<li>When you are ready, show the TA that you can print your name using your modified code and explain to them why the <code>IP</code> register is changing
+as you single-step through your program. If all works, then <b>congratulations</b> you are finished Lab0!! Feel free to stick around and play with Libra. 
+What else can you make the program do?
+</ol>
+
+<p><b>Have Fun !!!</b></p>
+
+<HR>
+<a name="linux"><H3>Non-Windows and Advanced Users</H3>
+<p>For students interested in running the Libra emulator and assembler on non-windows systems, you have a few options:
+<ul>
+	<li>There are some 'beta' Debian packages available at: 
+		<ul>
+			<li>http://rnelson.ca/files/lasm-1.0.0_i386.deb
+			<li>http://rnelson.ca/files/lasm-1.0.0_amd64.deb
+			<li>http://rnelson.ca/files/libra-1.0.0_i386.deb
+			<li>http://rnelson.ca/files/libra-1.0.0_amd64.deb 
+		</ul>
+	<li>You can download and build the source tree (including a beta XCode project file, linux makefile, and MSVC10 solutions file) directly from GitHub at:
+		<ul>
+			<li>https://github.com/rdnelson/Libra
+			<li>https://github.com/hasithvm/lasm
+		</ul>
+</ul>		
+</body></html>
