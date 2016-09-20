@@ -1,0 +1,146 @@
+<html>
+
+<head>
+ <title>SYSC2001 - Lab 1</title>
+</head>
+
+<body>
+
+<h1>SYSC 2001 LAB1</h1>
+
+<p><b>Note: TAs will ask you the questions in bold. Stop and think about each question.</b>
+
+<h2>Part I: Printing ASCII Strings</h2>
+
+<hr size=1 width="100%" align=center>
+
+
+<p>Printing in Libra is very simple. 
+There is a virtual display screen located at address 04E9h
+(hexadecimal).  Note that only ASCII
+codes can be sent to the display.  This
+means that if you want to print numbers they must be converted to ASCII strings
+first.  Because the display screen is
+actually an output device, we use the <b><code>out</code></b> statement to send a char to the
+display screen.  Note that the <b><code>out</code></b> statement can only send 1 ASCII character to the display so we must use a loop
+if we want to print a long string of characters.</p>
+
+<p></p>
+
+<p>The syntax of the out statement is very simple and never varies.  The address (i.e. port number) of the display screen is placed
+in the <b><code>DX</code></b> register.  This only
+needs to be done once unless we use the <b><code>DX</code></b> register for something else (and overwrite the port number in <code>DX</code>.  The ASCII character to be displayed is then
+placed in the <b><code>AL</code></b> register (the bottom half of the <b><code>AX</code></b> register) and we execute  the following
+<b><code>OUT</code></b> statement to send this single character to the Libra display screen:</p>
+
+<p></p>
+
+<p><b>OUT DX,AL</b></p>
+
+<p></p>
+
+<p>We then place the next character in the <code>AL</code> register and execute the same
+out statement again.  Usually we do this in a program loop (see below).  </p>
+
+<p></p>
+
+<p>Note: This syntax never varies!  You can <i>only</i> use the <code>DX</code> and <code>AL</code> registers in
+the out statement!</b> <i>(try using another register some time and see what happens)</i></p>
+
+<p></p>
+
+<p>We define a <b><i>string</i></b> as a set of more than one ASCII characters.  It is very important to remember that the
+computer does not know the difference between binary numbers or ASCII
+codes.  If you send a binary number to the display screen it will simply interpret the 8-bit byte as an ASCII code and
+print it:</p>
+
+<p></p>
+
+<p align=center style='text-align:center'><b><span lang=EN-CA style='font-size:14.0pt;mso-ansi-language:EN-CA'>Garbage
+In, Garbage Out! (GIGO)</b></p>
+
+<p></p>
+
+<p>For the CPU to print a string, we need to tell it where our string starts in memory (i.e. the address of the first character to be printed)
+and where our string stops in memory (i.e. when the stop reading and printing bytes from memory). There are several ways to do this latter task.  We could set
+another variable to the length of the string (number of characters in the
+string) and then by counting the number of times through the loop we will know
+when to stop.  A better way, and the way
+we will use, is to <b><i>delimit</i></b> the string by placing a special character at the end of
+the string.  We do not print this special character.  It is only there to tell the CPU
+when to stop. Before each character is printed, the CPU can simply check if it is the special "stop printing" character.</p>
+
+<p></p>
+
+<p>We will adopt a standard of using the <b><i>‘$’</i></b> character as a string
+delimiter; that is, every time we create a string in a section of memory we
+will place an ASCII <b><i>‘$’</i></b> at the end of the string. 
+Now, we only have to tell the loop the beginning address of the string
+and the loop will keep sending codes to the display until we reach the ‘$’
+sign.</p>
+
+<p><B>Using a pencil &amp; paper or a drawing program (e.g. powerpoint), create a flowchart for a program that accepts the starting
+address of a string (in  a variable called <code>"readAddress"</code>), then reads, checks, and prints characters from memory. Remember to increment the 
+<code>"readAddress"</code> memory pointer after you read each character. You should then check each character to see if it is the special "stop printing" character. If yes, then quit. If no, then print the character and loop back to read another character.
+<p>STOP HERE and show your flowchart to a TA</b></p>
+
+<H3>Examining memory</H3>
+
+Follow the instructions below. Write down your answers to each question (i.e. questions in bold within steps 3 and 6-10).
+ 
+<ol>
+	<li>Download the source file <b><code>prtstr.asm</code></b> and save-as to a new "Lab1" directory on your M-drive. This program will print a '$'-delimited string to the screen. 
+	Open prtstr.asm using Notepad++ (refer to the Lab0 instructions again if notepad++ is not set up to launch for *.asm files automatically). 
+	Read through all the code and comments carefully to make sure you understand <u>every line</u> of the code.
+	<li><b>Which register is being used to hold the <code>"readAddress"</code> variable?</b>
+	<li>Assemble the file using the assembler (<i>refer to Lab0 instructions to recall how to do this</i>)
+	<li>Examine the <code>prtstr.obj.lst</code> listing file. <b>At what address does your string start? At what address does your actual program start (i.e. the first instruction)?</b>
+	<li>Now load the program using Libra (<i>refer to Lab0 instructions if you don't recall how to do this</i>)
+	<li>Run the program through once to make sure it works.
+	<li>Reset your program. <b>What does the value does the <code>IP</code> register start at (before you run your program)? Where does this value come from?</b>
+	<li>Examine the contents of memory (bottom right of the Libra window). <b>What value is at memory address <b>0001h</b>? Where does this value come from?</b> (Hint, look at an ASCII table online)
+	<li>Now change the value at memory address 0001 to be hex value 61h. You can change any memory location (i.e. memory cell) by double-clicking on the cell and entering a new value (in hex). Without resetting, run the program using the "Run" button (looks like a PLAY button). <b>What is output to the screen instead of "Hello World!"? Why did the message change?</b>
+	<li>Now click file->"Reload File" and run it again. <b>Why did the program print the original (unaltered) "Hello World!" message again?</b> (hint: look at the contents of memory -- is it still 'changed'?)
+	<li>Change another character in memory by entering the ASCII values directly into memory. Run your program. When you reset this time, use the "STOP" button instead of the "Reload File" button. <b>What is the difference between the "Stop" and "Reload File" buttons?</b>
+	<li>The program prints a string until a '$' character is reached. Reset the program. <b>How do you now change the contents of <u>memory</u> <i>(<u>not</u> your ASM code)</i> to make the program only print "Hello"?</b>
+</ol>	<p>Demonstrate your modifications to the TA. Explain your answers to the <b>bold questions</b> above (i.e. steps 2,4, 6-11).
+
+
+<H2>Part II: Write your own program!</H2>
+<hr>
+<p>You are now ready to develop your program! Open <code>prtstr.asm</code> in Notepad++ and "save-as" a new file called <code>prtlow.asm</code>. The program should still examine each character in the string. Change the program such that it does the following:
+<ul>
+	<li>If the current character is an '$' character, quit the program
+	<li>If the current character is a lower-case character (i.e. 'a' to 'z'), print it and go on to the next character in the string
+	<li>If the current character is NOT a lower-case character, don't print it, but don't quit either (just go on to the next char)
+</ul>
+<p><strong>Hints:</strong>
+<ul>
+	<li>There is an Assembler reference on the course website under the "Labs" section called "p86reference". There is also an ASCII table in that section.</b>.
+	<li>You will need to make use of more <code>CMP</code> instructions to compare the current character to the upper or lower limits of the range of upper case letters. Study how the CMP instruction is used in <code>prtstr.asm</code>
+	<li>You may want to an ASCII table to determine your range limits, or you can compare directly to the character (e.g. CMP AL, 'a') and let the assembler convert the letter 'a' to the ASCII equivalent value.
+	<li>Make sure you are incrementing your <code>BX</code> pointer even if the character is not a lower-case character.
+	<li>You will need to make use of some conditional branch instructions, other than <code>JE</code>. Look at <code>JA</code> and <code>JB</code> in the p86reference file on the course website</b>.
+	<li>It is easier to check if the current character is <u>outside</u> the range of 'a'-'z'... Test for below the lower limit of the printable range, and above the upper limit...
+	<li>Remember to use the 'single-step' feature of Libra to slowly step through your program and make sure it works the way you want it to. This is a very useful <b>debugging</b> tool!
+	<li>Every time you make a change to your code, you must:<ol><li>Save the ASM file in Notepad++<li>Re-assemble the file<li>Re-check the LST file for errors<li>Reload the OBJ file in Libra<li>Rerun your program</ol>
+</ul>
+
+<p><strong>Remember to add comments to your program to explain any lines you change or add!</strong>
+
+<hr>
+
+<p>Note that you do not have to use the SUBMIT program for this pre-lab. We will use it next week for the second part of Lab1.
+<p>Don't stress too much. The TAs can help you develop your code if you ask specific questions (i.e. don't ask "how do I write this program", but you can ask "how does the JA instruction work?"
+
+<hr>
+<H2> Bonus:</H2> <i>(only worth 'moral victory' points, not actual bonus points)</i>
+<ul>
+	<li>Change your program so that it converts all upper-case letters to lower-case letters.
+	<li>Instead of using a '$' delimiter on your string, use a sentinel variable to denote the end of string: Define a label in your program, immediately following your string (i.e. a sentinel variable) and compare your pointer to this label to know when to quit.
+</ul>
+
+<p><b>Good Luck!</b></p>
+
+</body>
+</html>
